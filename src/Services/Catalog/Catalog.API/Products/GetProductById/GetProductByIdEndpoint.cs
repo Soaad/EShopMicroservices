@@ -10,7 +10,7 @@ namespace Catalog.API.Products.GetProductById
 
             app.MapGet("/products/{id}", async (Guid id, ISender sender) =>
             {
-                var res = sender.Send(new GetProductByIdQuery(id));
+                var res = await sender.Send(new GetProductByIdQuery(id));
                 var response = res.Adapt<GetProductByIdResponse>();
                 return Results.Ok(response);
             }).WithName("GetProductById")
