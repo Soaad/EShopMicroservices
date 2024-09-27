@@ -1,6 +1,6 @@
 
-using BuildingBlocks.Behaviors;
-using Catalog.API.Products.CreateProduct;
+
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,9 +28,34 @@ builder.Services.AddMarten(opts =>
 {
     opts.Connection(builder.Configuration.GetConnectionString("Database")!);
 }).UseLightweightSessions();
-var app = builder.Build();
 
+builder.Services.AddExceptionHandler<CustomExceptionHandler>();
+var app = builder.Build();
+//app.UseExceptionHandler(exceptionHandlerApp =>
+//{
+//    exceptionHandlerApp.Run(async context =>
+//    {
+//        var execption = context.Features.Get<IExceptionHandlerFeature>()?.Error;
+
+//        if (execption is null)
+//            return;
+
+
+//        var problemDetails = new ProblemDetails
+//        {
+//            Title = execption.Message,
+//            Detail = execption.StackTrace,
+//            Status = StatusCodes.Status500InternalServerError
+//        };
+
+//        var loger = context.RequestServices.GetRequiredService<ILogger<Program>>();
+//        loger.LogError(execption, execption.Message);
+//        context.Response.StatusCode = StatusCodes.Status500InternalServerError;
+//        context.Response.ContentType = "application/problem+json";
+//        await context.Response.WriteAsJsonAsync(problemDetails);    
+//    });
+//});
 //configure the http request pipline
 app.MapCarter();
-
+app.UseExceptionHandler(options => { });
 app.Run();
