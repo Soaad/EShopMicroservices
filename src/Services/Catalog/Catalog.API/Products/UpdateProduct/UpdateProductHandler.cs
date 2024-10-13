@@ -22,12 +22,11 @@ namespace Catalog.API.Products.UpdateProduct
         }
 
     }
-    internal class UpdateProductCommandHandler(IDocumentSession session,ILogger<UpdateProductCommandHandler> logger) : ICommandHandler<UpdateProductCommand, UpdateProductCommandResult>
+    internal class UpdateProductCommandHandler(IDocumentSession session ) : ICommandHandler<UpdateProductCommand, UpdateProductCommandResult>
     {
         public async Task<UpdateProductCommandResult> Handle(UpdateProductCommand command, CancellationToken cancellationToken)
         {
-            logger.LogInformation("UpdateProductCommandResult.handel is called with {@command}", command);
-           var product=await session.LoadAsync<Product>(command.Id, cancellationToken);
+ mbox e           var product=await session.LoadAsync<Product>(command.Id, cancellationToken);
 
             if (product is null) throw  new ProductNotFoundException(command.Id);
             product.Name = command.Name;    
