@@ -9,6 +9,8 @@ services:
     image: postgres
     volumes:
       - postgres_basket:/var/lib/postgresql/data/
+  distributedcache:
+    image: redis
 
   catalogapi:
     image: ${DOCKER_REGISTRY-}catalogapi
