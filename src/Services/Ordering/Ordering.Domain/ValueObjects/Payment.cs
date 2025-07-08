@@ -1,0 +1,36 @@
+namespace Ordering.Domain.ValueObjects;
+
+public record Payment
+{
+    private const int cvvLength = 3;
+    public string? CardName { get;   }=default!;
+    public string CardNumber { get;   }=default!;
+    public string Expiration { get;  }=default!;
+    public string CVV { get;   }=default!;
+    public string PaymentMethod { get;   }=default!;
+
+    protected Payment()
+    {
+        
+    }
+
+    private Payment( string? cardName, string? cardNumber, string? expiration, string? cvv, string? paymentMethod )
+    {
+        CardName = cardName;
+        CardNumber = cardNumber;
+        Expiration = expiration;
+        CVV = cvv;
+        PaymentMethod = paymentMethod;
+        
+        
+    }
+
+    public static Payment Of(string? cardName, string? cardNumber, string? expiration, string? cvv)
+    {
+        ArgumentException.ThrowIfNullOrWhiteSpace(cardName);
+        ArgumentException.ThrowIfNullOrWhiteSpace(cardNumber); 
+        ArgumentException.ThrowIfNullOrWhiteSpace(cvv);
+        ArgumentOutOfRangeException.ThrowIfGreaterThan(cvv.Length,cvvLength);
+        return new Payment(cardName, cardNumber, cardNumber, expiration, cvv);
+    }
+}

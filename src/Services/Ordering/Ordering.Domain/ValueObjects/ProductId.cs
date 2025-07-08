@@ -1,0 +1,17 @@
+namespace Ordering.Domain.ValueObjects;
+
+public record ProductId
+{
+    private Guid Value { get; }
+    
+    private ProductId(Guid value) => Value = value;
+    
+
+    public static ProductId Of(Guid value)
+    {
+        ArgumentNullException.ThrowIfNull(value);
+        if(value == Guid.Empty)
+            throw new DomainExpection("ProductId cannot be empty");
+        return new ProductId(value);
+    }
+}
