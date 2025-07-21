@@ -1,8 +1,8 @@
 namespace Ordering.Domain.ValueObjects;
 
-public record ProductId
+public  record struct ProductId
 {
-    private Guid Value { get; }
+    public Guid Value { get; }
     
     private ProductId(Guid value) => Value = value;
     

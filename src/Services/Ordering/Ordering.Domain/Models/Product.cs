@@ -11,6 +11,7 @@ public class Product:Entity<ProductId>
         ArgumentOutOfRangeException.ThrowIfNegativeOrZero(price);
         var product = new Product()
         {
+            Id = id,
            Name = name,
            Price = price
         };

@@ -1,5 +1,4 @@
 # This is a generated file. Not intended for manual editing.
-version: "3.8"
 services:
   basket.api:
     build:
@@ -11,30 +10,14 @@ services:
     - "dotnet"
     - "/app/bin/Debug/net8.0/Basket.API.dll"
     environment:
+      ASPNETCORE_ENVIRONMENT: "Development"
       DOTNET_USE_POLLING_FILE_WATCHER: "true"
     image: "basketapi:dev"
     ports: []
     volumes:
     - "/Users/soaadabdelaziz/EShopMicroservices./src/Services/Basket/Basket.API:/app:rw"
     - "/Users/soaadabdelaziz/EShopMicroservices./src:/src:rw"
-    - "/Users/soaadabdelaziz/.nuget/packages:/home/app/.nuget/packages"
-    working_dir: "/app"
-  catalog.api:
-    build:
-      context: "/Users/soaadabdelaziz/EShopMicroservices./src"
-      dockerfile: "Services/Catalog/Catalog.API/Dockerfile"
-      target: "base"
-    command: []
-    entrypoint:
-    - "dotnet"
-    - "/app/bin/Debug/net8.0/Catalog.API.dll"
-    environment:
-      DOTNET_USE_POLLING_FILE_WATCHER: "true"
-    image: "catalog.api:dev"
-    ports: []
-    volumes:
-    - "/Users/soaadabdelaziz/EShopMicroservices./src/Services/Catalog/Catalog.API:/app:rw"
-    - "/Users/soaadabdelaziz/EShopMicroservices./src:/src:rw"
+    - "/Users/soaadabdelaziz/.microsoft/usersecrets:/home/app/.microsoft/usersecrets"
     - "/Users/soaadabdelaziz/.nuget/packages:/home/app/.nuget/packages"
     working_dir: "/app"
   catalogapi:
@@ -66,6 +49,7 @@ services:
     - "dotnet"
     - "/app/bin/Debug/net8.0/Discount.Grpc.dll"
     environment:
+      ASPNETCORE_ENVIRONMENT: "Development"
       DOTNET_USE_POLLING_FILE_WATCHER: "true"
     image: "discountgrpc:dev"
     ports: []

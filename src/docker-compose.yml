@@ -1,4 +1,4 @@
-version: '3.8'
+
 
 services:
   catalogdb:
@@ -11,6 +11,16 @@ services:
       - postgres_basket:/var/lib/postgresql/data/
   distributedcache:
     image: redis
+    
+  orderDb:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    platform: linux/amd64
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=SwN12345678
+      - MSSQL_PID=Express
+    ports:
+        - "1433:1433"
 
   catalogapi:
     image: ${DOCKER_REGISTRY-}catalogapi
