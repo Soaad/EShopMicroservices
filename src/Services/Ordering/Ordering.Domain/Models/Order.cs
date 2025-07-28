@@ -22,11 +22,11 @@ public class Order : Aggregate<OrderId>
         private set { }
     }
 
-    public static Order Create(OrderId orderId,CustomerId customerId,OrderName orderName, Address shippingAddress, Address billingAddress, Payment payment)
+    public static Order Create(OrderId id,CustomerId customerId,OrderName orderName, Address shippingAddress, Address billingAddress, Payment payment)
     {
         var order = new Order
         {
-            Id = orderId,
+            Id = id,
             CustomerId = customerId,
             OrderName = orderName,
             ShippigAddress = shippingAddress,
@@ -51,7 +51,7 @@ public class Order : Aggregate<OrderId>
          
     }
 
-    public void Add(ProductId productId, decimal price, int quantity)
+    public void Add(ProductId productId,  int quantity,decimal price )
     {
         ArgumentOutOfRangeException.ThrowIfNegativeOrZero(price);
         ArgumentOutOfRangeException.ThrowIfNegativeOrZero(quantity);
@@ -65,4 +65,6 @@ public class Order : Aggregate<OrderId>
         if(orderItem != null)
             _orderItems.Remove(orderItem);
     }
+
+   
 }
